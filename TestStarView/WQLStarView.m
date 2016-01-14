@@ -86,7 +86,12 @@
     CGFloat showNumber = commentPoint/singlePoint;
     
     //覆盖的长图
-    starView = [[UIView alloc]init];
+    if (!starView) {
+        starView = [[UIView alloc]init];
+    }
+    
+    starView.frame = CGRectZero;
+    
     //整颗星星
     NSInteger fullNumber = showNumber/1;
     starView.frame = CGRectMake(0, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
