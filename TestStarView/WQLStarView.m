@@ -21,6 +21,9 @@
     //单个代表的评分
     CGFloat singlePoint;
     
+    //最大分数
+    NSInteger maxPoints;
+    
     //星星的tag
     NSInteger starBaseTag;
     
@@ -52,6 +55,7 @@
         spaceWidth = space;
         totalNumber = totalStar;
         singlePoint = totalPoint/totalStar;
+        maxPoints = totalPoint;
         
         [self loadCustomViewWithTotal:totalStar];
         
@@ -75,6 +79,10 @@
 {
     _commentPoint = commentPoint;
     
+    if (commentPoint > maxPoints) {
+        commentPoint = maxPoints;
+    }
+    
     CGFloat showNumber = commentPoint/singlePoint;
     
     //覆盖的长图
@@ -91,7 +99,7 @@
         starImageView.frame = CGRectMake(j*starHeight+j*spaceWidth, 0, starHeight, starHeight);
         [starView addSubview:starImageView];
     }
-
+    
     CGFloat part = showNumber - fullNumber;
     //如果有残缺的星星 则添加
     if (part > 0) {
@@ -109,7 +117,7 @@
     _starAliment = starAliment;
     
     switch (starAliment) {
-        //居中对齐
+            //居中对齐
         case StarAlimentCenter:
         {
             CGFloat starRealWidth = totalNumber*starHeight+(totalNumber-1)*spaceWidth;
@@ -121,11 +129,11 @@
             }
             
             starView.frame = CGRectMake(leftWidth/2+starView.frame.origin.x, starView.frame.origin.y, starView.frame.size.width, starView.frame.size.height);
- 
+            
         }
             break;
-        //右对齐
-      case StarAlimentRight:
+            //右对齐
+        case StarAlimentRight:
         {
             CGFloat starRealWidth = totalNumber*starHeight+(totalNumber-1)*spaceWidth;
             CGFloat leftWidth = self.frame.size.width-starRealWidth;
@@ -136,11 +144,11 @@
             }
             
             starView.frame = CGRectMake(leftWidth+starView.frame.origin.x, starView.frame.origin.y, starView.frame.size.width, starView.frame.size.height);
-
+            
         }
             break;
-        //默认的左对齐
-            case StarAlimentDefault:
+            //默认的左对齐
+        case StarAlimentDefault:
         {
             
             for (int i =0 ; i< totalNumber; i++) {
@@ -154,8 +162,8 @@
             //整颗星星
             NSInteger fullNumber = showNumber/1;
             starView.frame = CGRectMake(0, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
-
-
+            
+            
         }
             break;
         default:
