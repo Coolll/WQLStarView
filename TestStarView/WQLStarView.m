@@ -29,6 +29,9 @@
     
     //填充的视图
     UIView *starView;
+    
+    //填充星星的偏移量
+    CGFloat starOffset;
 }
 @end
 @implementation WQLStarView
@@ -91,10 +94,16 @@
     }
     
     starView.frame = CGRectZero;
-    
     //整颗星星
     NSInteger fullNumber = showNumber/1;
-    starView.frame = CGRectMake(0, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
+    
+    if (starOffset > 0) {
+        starView.frame = CGRectMake(starOffset, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
+
+    }else{
+        starView.frame = CGRectMake(0, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
+
+    }
     starView.clipsToBounds = YES;
     
     //在长图上填充完整的星星
@@ -132,7 +141,7 @@
                 UIImageView *starImageView = (UIImageView*)[self viewWithTag:i+starBaseTag];
                 starImageView.frame = CGRectMake(leftWidth/2+starImageView.frame.origin.x, starImageView.frame.origin.y, starImageView.frame.size.width, starImageView.frame.size.height);
             }
-            
+            starOffset = leftWidth/2;
             starView.frame = CGRectMake(leftWidth/2+starView.frame.origin.x, starView.frame.origin.y, starView.frame.size.width, starView.frame.size.height);
             
         }
@@ -147,7 +156,7 @@
                 UIImageView *starImageView = (UIImageView*)[self viewWithTag:i+starBaseTag];
                 starImageView.frame = CGRectMake(leftWidth+starImageView.frame.origin.x, starImageView.frame.origin.y, starImageView.frame.size.width, starImageView.frame.size.height);
             }
-            
+            starOffset = leftWidth;
             starView.frame = CGRectMake(leftWidth+starView.frame.origin.x, starView.frame.origin.y, starView.frame.size.width, starView.frame.size.height);
             
         }
@@ -166,6 +175,7 @@
             
             //整颗星星
             NSInteger fullNumber = showNumber/1;
+            starOffset = 0;
             starView.frame = CGRectMake(0, self.frame.size.height-starHeight, starHeight*showNumber+spaceWidth*fullNumber, starHeight);
             
             

@@ -22,9 +22,11 @@
     [super viewDidLoad];
     
     starView = [[WQLStarView alloc]initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 40) withTotalStar:5 withTotalPoint:10 starSpace:10];
+    starView.starAliment = StarAlimentCenter;
     starView.commentPoint = 7;
     [self.view addSubview:starView];
 
+    
     textF = [[UITextField alloc]initWithFrame:CGRectMake((self.view.frame.size.width-100)/2, 240, 100, 40)];
     textF.backgroundColor = [UIColor lightGrayColor];
     textF.delegate = self;
